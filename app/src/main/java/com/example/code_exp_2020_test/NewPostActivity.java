@@ -24,7 +24,7 @@ public class NewPostActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        storageReference = FirebaseStorage.getInstance().getReference();
+        //storageReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = firebaseAuth.getInstance();
 
