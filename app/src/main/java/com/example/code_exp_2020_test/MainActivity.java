@@ -3,6 +3,8 @@ package com.example.code_exp_2020_test;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -11,7 +13,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivity extends Activity {
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
+
+public class MainActivity extends FragmentActivity {
 
     private Toolbar mainToolbar;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -23,6 +29,11 @@ public class MainActivity extends Activity {
     private FloatingActionButton addPostBtn;
 
     private BottomNavigationView mainbottomNav;
+
+    /**
+     * DECLARE FRAGMENTS HERE
+     */
+    private HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +54,12 @@ public class MainActivity extends Activity {
         if(mAuth.getCurrentUser() != null) {
             mainbottomNav = findViewById(R.id.mainBottomNav);
 
-            /**Fragment stuff, to be added later over here
-             *
-             *
+            /**
+             * INITIALIZE ALL YOUR FRAGMENTS HERE
              */
+            homeFragment = new HomeFragment();
+
+            initializeFragment();
 
             //Auth state listener, on auth state change, check if user is now null, then go back to LoginActivity
             authStateListener = (FirebaseAuth.AuthStateListener) (firebaseAuth) -> {
@@ -66,4 +79,55 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_logout_btn:
+                logout();
+                return true;
+            case R.id.action_settings_btn:
+                return true;
+            default:
+                return true;
+        }
+    }
+
+    private void logout() {
+        mAuth.signOut();
+        sendToLogin();
+    }
+
+    private void sendToLogin() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void initializeFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //Add all transactions below and hide them
+        fragmentTransaction.add(R.id.main_container, homeFragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onResume() {super.onResume();}
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(authStateListener!=null) mAuth.removeAuthStateListener(authStateListener);
+    }
 }
