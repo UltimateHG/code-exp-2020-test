@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">code_exp_2020_test</string>
+    <string name="app_name">FakeMeh?</string>
+    <string name="signup">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="already">Already have an account?</string>
+    <string name="dont">Don\'t have an account?</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
 </resources>
