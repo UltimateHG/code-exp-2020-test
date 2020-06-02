@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "code_exp_2020_test"
