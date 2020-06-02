@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
@@ -20,7 +22,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewPostActivity extends Activity {
+public class NewPostActivity extends AppCompatActivity {
 
     private Toolbar newPostToolbar;
     private EditText newPostTitle, newPostBody;
@@ -35,7 +37,7 @@ public class NewPostActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_new_post);
         //Initialize variables
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -47,8 +49,8 @@ public class NewPostActivity extends Activity {
         //Set toolbar name and layout
         newPostToolbar = findViewById(R.id.new_post_toolbar);
         setActionBar(newPostToolbar);
-        getActionBar().setTitle("Write New Post");
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Write New Post");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Initialize new post fields and post button
         newPostTitle = findViewById(R.id.new_post_title);
@@ -58,13 +60,14 @@ public class NewPostActivity extends Activity {
         //Handle new post button
         newPostButton.setOnClickListener((v) -> {
             final String title = newPostTitle.getText().toString();
-            final String body = newPostTitle.getText().toString();
+            final String body = newPostBody.getText().toString();
 
             //Place post details onto a hashmap
             Map<String, Object> postMap = new HashMap<>();
             postMap.put("title", title);
             postMap.put("body", body);
             postMap.put("user_id",current_user_id);
+            postMap.put("username", firebaseAuth.getCurrentUser().getDisplayName());
             postMap.put("timestamp", FieldValue.serverTimestamp());
 
             //Store hashmap into firebase
