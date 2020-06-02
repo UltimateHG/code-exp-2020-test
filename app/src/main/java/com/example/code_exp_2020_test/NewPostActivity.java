@@ -1,9 +1,11 @@
 package com.example.code_exp_2020_test;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +16,9 @@ import com.google.firebase.firestore.ServerTimestamp;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NewPostActivity extends Activity {
 
@@ -31,11 +36,51 @@ public class NewPostActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Initialize variables
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = firebaseAuth.getInstance();
 
+        //Get current user id
         current_user_id = firebaseAuth.getCurrentUser().getUid();
+
+        //Set toolbar name and layout
+        newPostToolbar = findViewById(R.id.new_post_toolbar);
+        setActionBar(newPostToolbar);
+        getActionBar().setTitle("Write New Post");
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Initialize new post fields and post button
+        newPostTitle = findViewById(R.id.new_post_title);
+        newPostBody = findViewById(R.id.new_post_body);
+        newPostButton = findViewById(R.id.post_btn);
+
+        //Handle new post button
+        newPostButton.setOnClickListener((v) -> {
+            final String title = newPostTitle.getText().toString();
+            final String body = newPostTitle.getText().toString();
+
+            //Place post details onto a hashmap
+            Map<String, Object> postMap = new HashMap<>();
+            postMap.put("title", title);
+            postMap.put("body", body);
+            postMap.put("user_id",current_user_id);
+            postMap.put("timestamp", FieldValue.serverTimestamp());
+
+            //Store hashmap into firebase
+            firebaseFirestore.collection("posts").add(postMap).addOnCompleteListener((task) -> {
+                if(task.isSuccessful()) {
+                    //If successful, tell user successful post and redirect back to main page.
+                    Toast.makeText(NewPostActivity.this, "Your post has been successfully posted!", Toast.LENGTH_LONG).show();
+                    Intent mainIntent = new Intent(NewPostActivity.this, MainActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+                } else {
+                    //handle exceptions later, placeholder toast here
+                    Toast.makeText(NewPostActivity.this, "Your post is unable to be posted! Please make sure you are connected to the internet!", Toast.LENGTH_LONG).show();
+                }
+            });
+        });
     }
 
 }
