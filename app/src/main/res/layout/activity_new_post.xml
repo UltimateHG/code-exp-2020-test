@@ -17,34 +17,56 @@
         app:layout_constraintTop_toTopOf="parent"></Toolbar>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/new_post_title"
+        android:id="@+id/new_post_title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
         android:hint="@string/post_title_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_post_toolbar"
-        app:srcCompat="@drawable/post_placeholder" />
+        app:srcCompat="@drawable/post_placeholder">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/new_post_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/new_post_body"
+        android:id="@+id/new_post_body_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/post_body_hint"
-        android:inputType="textMultiLine"
-        android:maxLength="125"
-        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_post_title" />
+        app:layout_constraintTop_toBottomOf="@+id/new_post_title_layout"
+        android:background="@drawable/border_style">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/new_post_body"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:inputType="textMultiLine"
+            android:overScrollMode="always"
+            android:padding="4dp"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:hint="@string/post_body_hint"
+            android:background="@null"
+            android:gravity="top"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/post_btn"
@@ -61,17 +83,6 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_post_body" />
-
-    <ProgressBar
-        android:id="@+id/new_post_progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/new_post_title" />
+        app:layout_constraintTop_toBottomOf="@+id/new_post_body_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
