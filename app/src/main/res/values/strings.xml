@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">code_exp_2020_test</string>
+
+    <string name="post_title_hint">Enter Title Here</string>
+    <string name="post_body_hint">Type Post Here</string>
+    <string name="new_post_btn_hint">Post</string>
 </resources>
