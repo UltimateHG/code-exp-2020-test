@@ -8,4 +8,16 @@
     <string name="dont">Don\'t have an account?</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+
+    <string name="action_search_text">Search</string>
+    <string name="action_setting_text">Account Settings</string>
+    <string name="action_logout_text">Logout</string>
+
+    <string name="post_title_hint">Enter Title Here</string>
+    <string name="post_body_hint">Type Post Here</string>
+    <string name="new_post_btn_hint">Post</string>
+
+    <string name="bottom_home_text">Home</string>
+    <string name="bottom_notification_text">Notification</string>
+    <string name="bottom_ac_text">Account</string>
 </resources>
