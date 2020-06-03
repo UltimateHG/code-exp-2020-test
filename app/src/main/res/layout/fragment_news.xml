@@ -4,7 +4,8 @@
     android:id="@+id/swiperefresh_news"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.news.NewsFragment">
+    tools:context=".ui.news.NewsFragment"
+    android:layout_marginBottom="56dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_list_view"
