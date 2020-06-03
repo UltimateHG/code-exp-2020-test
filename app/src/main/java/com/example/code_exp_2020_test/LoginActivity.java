@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             if (!TextUtils.isEmpty(user.getDisplayName())) {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
         catch(Exception e){
