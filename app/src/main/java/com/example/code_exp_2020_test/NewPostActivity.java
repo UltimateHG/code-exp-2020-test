@@ -47,8 +47,8 @@ public class NewPostActivity extends AppCompatActivity {
         current_user_id = firebaseAuth.getCurrentUser().getUid();
 
         //Set toolbar name and layout
-        newPostToolbar = findViewById(R.id.new_post_toolbar);
-        setActionBar(newPostToolbar);
+        //newPostToolbar = findViewById(R.id.new_post_toolbar);
+        //setActionBar(newPostToolbar);
         getSupportActionBar().setTitle("Write New Post");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

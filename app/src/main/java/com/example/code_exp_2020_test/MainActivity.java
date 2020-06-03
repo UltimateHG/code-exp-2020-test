@@ -82,9 +82,8 @@ public class MainActivity extends AppCompatActivity {
         //Set toolbar name
         mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setActionBar(mainToolbar);
-
         getSupportActionBar().setTitle("FakeMeh?");
-
+        getSupportActionBar().hide();
     }
 
     @Override
