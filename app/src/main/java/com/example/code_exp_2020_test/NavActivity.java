@@ -73,9 +73,11 @@ public class NavActivity extends AppCompatActivity {
         navViewModel.getFirebaseAuth().signOut();
         navViewModel.refreshFirebaseUser();
         Toast.makeText(this, "Logout successful.", Toast.LENGTH_SHORT).show();
+        invalidateOptionsMenu();
     }
 
     private void login() {
         startActivity(new Intent(NavActivity.this, LoginActivity.class));
+        invalidateOptionsMenu();
     }
 }
