@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -76,8 +77,23 @@ public class NavActivity extends AppCompatActivity {
         invalidateOptionsMenu();
     }
 
+    private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
+
     private void login() {
-        startActivity(new Intent(NavActivity.this, LoginActivity.class));
-        invalidateOptionsMenu();
+        startActivityForResult(new Intent(NavActivity.this, LoginActivity.class), LOGIN_ACTIVITY_REQUEST_CODE);
+    }
+
+    // This method is called when the second activity finishes
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check that it is the SecondActivity with an OK result
+        if (requestCode == LOGIN_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                navViewModel.refreshFirebaseUser();
+                invalidateOptionsMenu();
+            }
+        }
     }
 }

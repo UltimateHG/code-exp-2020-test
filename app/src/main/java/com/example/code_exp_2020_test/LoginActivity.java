@@ -92,8 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Logged in!",
                                         Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(getApplicationContext(), NavActivity.class);
-                                startActivity(intent);
+                                setResult(RESULT_OK, new Intent());
                                 finish();
                             } else {
                                 // If sign in fails, display a message to the user.
