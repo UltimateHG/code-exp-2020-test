@@ -4,9 +4,9 @@ public class NewsPost extends NewsPostId{
 
     public String title, link;
 
-    public NewsPost(){
+    /*public NewsPost(){
 
-    }
+    }*/
 
     //generate thingy
     public NewsPost(String t, String l){
