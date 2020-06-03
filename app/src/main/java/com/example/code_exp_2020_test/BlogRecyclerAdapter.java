@@ -62,6 +62,12 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         String username = blog_list.get(position).getUsername();
         holder.setUsername(username);
 
+        String status = blog_list.get(position).getStatus();
+        holder.setStatus(status);
+
+        int commentCount = blog_list.get(position).getCommentCount();
+        holder.setCommentCount(commentCount);
+
         //Get timestamp and format it
         try {
             long ms = blog_list.get(position).getTimestamp().getTime();
@@ -71,15 +77,15 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             Toast.makeText(context,"Exception: "+e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-        //Set comment count
+        /*/Set comment count DEPRECATED
         firebaseFirestore.collection("posts/"+blogPostId+"/comments").addSnapshotListener((queryDocumentSnapshots, e) ->  {
            if(!queryDocumentSnapshots.isEmpty()) {
                int commentCount = queryDocumentSnapshots.size();
-               holder.updateCommentCount(commentCount);
+               holder.setCommentCount(commentCount);
            } else {
-               holder.updateCommentCount(0);
+               holder.setCommentCount(0);
            }
-        });
+        });*/
 
         //comment button listener
         holder.blogCommentBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +112,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         private TextView blogDate;
         private TextView blogUsername;
         private ImageView blogCommentBtn;
+        private TextView blogStatus;
         private TextView blogCommentCount;
 
         public ViewHolder(View itemView) {
@@ -136,7 +143,12 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             blogUsername.setText(username);
         }
 
-        public void updateCommentCount(int count) {
+        public void setStatus(String username) {
+            blogStatus = view.findViewById(R.id.blog_status);
+            blogStatus.setText(username);
+        }
+
+        public void setCommentCount(int count) {
             blogCommentCount = view.findViewById(R.id.blog_comment_count);
             blogCommentCount.setText(Integer.toString(count));
         }
