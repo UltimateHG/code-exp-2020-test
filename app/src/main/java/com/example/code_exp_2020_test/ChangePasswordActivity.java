@@ -34,8 +34,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -58,8 +57,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(ChangePasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
                                         mAuth.signOut();
-                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                        startActivity(intent);
+                                        finish();
                                     } else {
                                         Toast.makeText(ChangePasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                                     }

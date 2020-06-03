@@ -160,14 +160,17 @@ public class MainActivity extends AppCompatActivity {
         if(fragment == homeFragment) {
             fragmentTransaction.hide(topFragment);
             fragmentTransaction.hide(accountFragment);
+            getSupportActionBar().setTitle("Home");
         }
         if(fragment == topFragment) {
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(accountFragment);
+            getSupportActionBar().setTitle("Top Posts");
         }
         if(fragment == accountFragment) {
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(topFragment);
+            getSupportActionBar().setTitle("Account");
         }
 
         fragmentTransaction.show(fragment);
