@@ -1,17 +1,13 @@
 package com.example.code_exp_2020_test;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,10 +15,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * DECLARE FRAGMENTS HERE
      */
-    private HomeFragment homeFragment;
+    private HomeOldFragment homeOldFragment;
     private TopFragment topFragment;
     private AccountFragment accountFragment;
 
@@ -60,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             /**
              * INITIALIZE ALL YOUR FRAGMENTS HERE
              */
-            homeFragment = new HomeFragment();
+            homeOldFragment = new HomeOldFragment();
             topFragment = new TopFragment();
             accountFragment = new AccountFragment();
 
@@ -70,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_container);
                 switch(item.getItemId()) {
                     case R.id.bottom_action_home:
-                        replaceFragment(homeFragment, currentFragment);
+                        replaceFragment(homeOldFragment, currentFragment);
                         return true;
                     case R.id.bottom_action_top:
                         replaceFragment(topFragment, currentFragment);
@@ -146,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //Add all transactions below and hide them
-        fragmentTransaction.add(R.id.main_container, homeFragment);
+        fragmentTransaction.add(R.id.main_container, homeOldFragment);
         fragmentTransaction.add(R.id.main_container, topFragment);
         fragmentTransaction.add(R.id.main_container, accountFragment);
         fragmentTransaction.hide(topFragment);
@@ -157,18 +149,18 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment, Fragment currentFragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //Add more ifs for more fragments
-        if(fragment == homeFragment) {
+        if(fragment == homeOldFragment) {
             fragmentTransaction.hide(topFragment);
             fragmentTransaction.hide(accountFragment);
             getSupportActionBar().setTitle("Home");
         }
         if(fragment == topFragment) {
-            fragmentTransaction.hide(homeFragment);
+            fragmentTransaction.hide(homeOldFragment);
             fragmentTransaction.hide(accountFragment);
             getSupportActionBar().setTitle("Top Posts");
         }
         if(fragment == accountFragment) {
-            fragmentTransaction.hide(homeFragment);
+            fragmentTransaction.hide(homeOldFragment);
             fragmentTransaction.hide(topFragment);
             getSupportActionBar().setTitle("Account");
         }

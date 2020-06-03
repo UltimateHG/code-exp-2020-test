@@ -1,11 +1,23 @@
-package com.example.code_exp_2020_test;
+package com.example.code_exp_2020_test.ui.home;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.code_exp_2020_test.BlogPost;
+import com.example.code_exp_2020_test.BlogRecyclerAdapter;
+import com.example.code_exp_2020_test.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -14,25 +26,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class HomeFragment extends Fragment {
-    //fragment initialization
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
+    private HomeViewModel homeViewModel;
 
     //variables
     private RecyclerView blog_list_view;
@@ -46,38 +47,13 @@ public class HomeFragment extends Fragment {
     private DocumentSnapshot lastVisible;
     private ListenerRegistration registration;
 
-    public HomeFragment() {}
-
-    /**
-     * Create new instance of this fragment with param1 and param2
-     */
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        registration.remove();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        homeViewModel =
+                ViewModelProviders.of(this).get(HomeViewModel.class);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+
         //define basic variables
         blog_list = new ArrayList<>();
         blog_list_view = view.findViewById(R.id.blog_list_view);
@@ -167,6 +143,12 @@ public class HomeFragment extends Fragment {
 
         //inflate layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        registration.remove();
     }
 
     //for loading more posts after reaching bottom on scroll

@@ -28,4 +28,8 @@
     <string name="send_reset_email">Send Reset Email</string>
 
     <string name="never_mind">Never Mind</string>
+    <string name="title_activity_nav">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
