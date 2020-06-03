@@ -21,14 +21,21 @@ import com.example.code_exp_2020_test.NavViewModel;
 import com.example.code_exp_2020_test.NewPostActivity;
 import com.example.code_exp_2020_test.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class TopFragment extends Fragment {
@@ -69,17 +76,6 @@ public class TopFragment extends Fragment {
 
         loadPost();
 
-        blog_list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                boolean reachedBottom = !recyclerView.canScrollVertically(1);
-                if(reachedBottom){
-                    loadMorePost();
-                }
-            }
-        });
-
         //Handle add post button
         FloatingActionButton addPostBtn = view.findViewById(R.id.add_post_btn);
         addPostBtn.setOnClickListener((v) -> {
@@ -101,56 +97,45 @@ public class TopFragment extends Fragment {
 
     private void loadPost() {
         isFirstPageFirstLoad = true;
-        Query query = firebaseFirestore.collection("posts").orderBy("commentCount", Query.Direction.DESCENDING).limit(3);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -7);
+        Date fromdate = cal.getTime();
+
+        Query query = firebaseFirestore.collection("posts").orderBy("commentCount", Query.Direction.DESCENDING).orderBy("timestamp", Query.Direction.DESCENDING);
         query.addSnapshotListener((queryDocumentSnapshots, e) -> {
             try {
                 if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                    int tIndex = 0;
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        if (((Timestamp) documentSnapshot.get("timestamp")).toDate().compareTo(fromdate) < 0) {
+                            break;
+                        }
+                        tIndex++;
+                    }
                     //if first page and first load, set top document to latest one
-                    if(isFirstPageFirstLoad) {
-                        lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-1);
+                    if (isFirstPageFirstLoad) {
+                        lastVisible = queryDocumentSnapshots.getDocuments().get(tIndex - 1);
                         blog_list.clear();
                     }
 
-                    for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()) {
-                        //updating stuff for when document change occurs
-                        if(doc.getType() == DocumentChange.Type.ADDED) {
-                            String blogPostId = doc.getDocument().getId();
-                            BlogPost blogPost = doc.getDocument().toObject(BlogPost.class).withId(blogPostId);
-                            if(isFirstPageFirstLoad) blog_list.add(blogPost);
-                            else blog_list.add(0, blogPost);
+                    if (tIndex != 0) {
+                        for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                            //updating stuff for when document change occurs
+                            if (doc.getType() == DocumentChange.Type.ADDED) {
+                                String blogPostId = doc.getDocument().getId();
+                                BlogPost blogPost = doc.getDocument().toObject(BlogPost.class).withId(blogPostId);
+                                if (isFirstPageFirstLoad) blog_list.add(blogPost);
+                                else blog_list.add(0, blogPost);
 
-                            blogRecyclerAdapter.notifyDataSetChanged();
+                                blogRecyclerAdapter.notifyDataSetChanged();
+                            }
                         }
+                        //loaded once alr, set this to false
+                        isFirstPageFirstLoad = false;
                     }
-                    //loaded once alr, set this to false
-                    isFirstPageFirstLoad = false;
                 }
             } catch(NullPointerException e1) {
                 Log.d("error", e1.toString());
-            }
-        });
-    }
-    //for loading more posts after reaching bottom on scroll
-    public void loadMorePost() {
-        //query after lastVisible
-        Query nextQuery = firebaseFirestore.collection("posts")
-                .orderBy("commentCount", Query.Direction.DESCENDING)
-                .startAfter(lastVisible)
-                .limit(3);
-
-        nextQuery.addSnapshotListener((EventListener<QuerySnapshot>) (queryDocumentSnapshots, e) -> {
-            if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
-                lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-1);
-
-                for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()) {
-                    if(doc.getType() == DocumentChange.Type.ADDED) {
-                        String blogPostId = doc.getDocument().getId();
-                        BlogPost blogPost = doc.getDocument().toObject(BlogPost.class).withId(blogPostId);
-                        blog_list.add(blogPost);
-
-                        blogRecyclerAdapter.notifyDataSetChanged();
-                    }
-                }
             }
         });
     }
