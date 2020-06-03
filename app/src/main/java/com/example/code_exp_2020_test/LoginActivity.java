@@ -36,14 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            Log.d("User logged in", user.getDisplayName() + " " + user.getUid());
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-        } else {
-            // No user is signed in.
-        }
 
         loginEmailInput = findViewById(R.id.loginEmailInput);
         loginPasswordInput = findViewById(R.id.loginPasswordInput);
@@ -95,6 +87,10 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                     });
+        }
+        else {
+            Toast.makeText(LoginActivity.this, "Enter a valid email and password",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }
