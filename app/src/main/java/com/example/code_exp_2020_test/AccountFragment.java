@@ -26,6 +26,12 @@ public class AccountFragment extends Fragment {
     TextView accountUsernameText;
     TextView accountPointsText;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().getActionBar().setTitle("");
+    }
+
     FirebaseAuth mAuth;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
