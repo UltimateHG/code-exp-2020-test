@@ -110,6 +110,8 @@ public class CommentsActivity extends AppCompatActivity {
                     comment_field.setText("");
                 }
             });
+
+            firebaseFirestore.collection("posts").document(blog_post_id).update("commentCount", Integer.parseInt(getIntent().getStringExtra("commentCount"))+1);
         });
     }
 
