@@ -13,12 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.code_exp_2020_test.ChangePasswordActivity;
 import com.example.code_exp_2020_test.LoginActivity;
-import com.example.code_exp_2020_test.NavActivity;
-import com.example.code_exp_2020_test.NavViewModel;
 import com.example.code_exp_2020_test.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -40,6 +37,7 @@ public class AccountFragment extends Fragment {
 
         if (mAuth.getCurrentUser() == null) {
             startActivity(new Intent(getActivity(), LoginActivity.class));
+            return null;
         }
 
         accountUsernameText = (TextView)root.findViewById(R.id.accountUsernameText);
