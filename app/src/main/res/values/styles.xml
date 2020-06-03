@@ -7,4 +7,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="RegularButtons" parent = "Widget.AppCompat.Button.Colored">
+        <item name="colorPrimary">@android:color/holo_blue_dark</item>
+    </style>
+    <style name="LessRegularButtons" parent = "Widget.AppCompat.Button.Borderless.Colored">
+    <item name="colorPrimary">@android:color/holo_blue_dark</item>
+    </style>
+
 </resources>
