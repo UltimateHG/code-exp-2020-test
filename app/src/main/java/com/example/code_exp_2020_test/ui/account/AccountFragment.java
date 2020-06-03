@@ -1,11 +1,7 @@
-package com.example.code_exp_2020_test;
+package com.example.code_exp_2020_test.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,39 +10,38 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.example.code_exp_2020_test.ChangePasswordActivity;
+import com.example.code_exp_2020_test.LoginActivity;
+import com.example.code_exp_2020_test.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.w3c.dom.Text;
-
-
 public class AccountFragment extends Fragment {
-
     Button accountLogoutButton;
     Button accountChangePasswordButton;
     TextView accountUsernameText;
     TextView accountPointsText;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     FirebaseAuth mAuth;
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-        View rootView = inflater.inflate(R.layout.fragment_account, container, false);
 
+    private AccountViewModel accountViewModel;
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        accountViewModel =
+                ViewModelProviders.of(this).get(AccountViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_account, container, false);
         mAuth = FirebaseAuth.getInstance();
 
-        accountUsernameText = (TextView)rootView.findViewById(R.id.accountUsernameText);
-        accountPointsText = (TextView)rootView.findViewById(R.id.accountPointsText);
+        accountUsernameText = (TextView)root.findViewById(R.id.accountUsernameText);
+        accountPointsText = (TextView)root.findViewById(R.id.accountPointsText);
 
         accountUsernameText.setText(mAuth.getCurrentUser().getDisplayName());
         accountPointsText.setText("2 points");
 
-        accountLogoutButton = (Button)rootView.findViewById(R.id.accountLogoutButton);
+        accountLogoutButton = (Button)root.findViewById(R.id.accountLogoutButton);
         accountLogoutButton.setOnClickListener(v -> {
             try {
                 mAuth.signOut();
@@ -61,13 +56,13 @@ public class AccountFragment extends Fragment {
         });
 
         //change profile details
-        accountChangePasswordButton = (Button)rootView.findViewById(R.id.accountChangePasswordButton);
+        accountChangePasswordButton = (Button)root.findViewById(R.id.accountChangePasswordButton);
         //create on click listener
         accountChangePasswordButton.setOnClickListener(view -> {
             Log.d("Change","Pressed");
             Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
             startActivity(intent);
         });
-        return rootView;
+        return root;
     }
 }

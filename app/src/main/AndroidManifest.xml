@@ -24,7 +24,6 @@
         </activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".DebugMainActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".NewPostActivity" />
         <activity android:name=".CommentsActivity" />
     </application>

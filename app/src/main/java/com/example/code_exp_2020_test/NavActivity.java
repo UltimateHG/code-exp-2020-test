@@ -38,7 +38,7 @@ public class NavActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_home, R.id.navigation_top, R.id.navigation_account)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -70,10 +70,9 @@ public class NavActivity extends AppCompatActivity {
         }
 
         //Set toolbar name
-        mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        setActionBar(mainToolbar);
+//        mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+//        setActionBar(mainToolbar);
         getSupportActionBar().setTitle("FakeMeh?");
-        getSupportActionBar().hide();
     }
 
     @Override
@@ -100,9 +99,6 @@ public class NavActivity extends AppCompatActivity {
                 return true;
         }
     }
-
-    @Override
-    public void onResume() {super.onResume();}
 
     @Override
     public void onStop() {
