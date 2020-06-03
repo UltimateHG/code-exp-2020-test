@@ -1,5 +1,6 @@
 package com.example.code_exp_2020_test.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +16,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.code_exp_2020_test.BlogPost;
 import com.example.code_exp_2020_test.BlogRecyclerAdapter;
+import com.example.code_exp_2020_test.LoginActivity;
+import com.example.code_exp_2020_test.NavActivity;
 import com.example.code_exp_2020_test.NavViewModel;
+import com.example.code_exp_2020_test.NewPostActivity;
 import com.example.code_exp_2020_test.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -44,7 +49,13 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         navViewModel = new ViewModelProvider(requireActivity()).get(NavViewModel.class);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        setupViews(view, container);
 
+        loadPost();
+        return view;
+    }
+
+    private void setupViews(View view, ViewGroup container) {
         //define basic variables
         blog_list = new ArrayList<>();
         //variables
@@ -58,8 +69,6 @@ public class HomeFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        loadPost();
-
         blog_list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -71,14 +80,22 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //Handle add post button
+        FloatingActionButton addPostBtn = view.findViewById(R.id.add_post_btn);
+        addPostBtn.setOnClickListener((v) -> {
+            if (navViewModel.getFirebaseUser().getValue() != null) {
+                Intent newPostIntent = new Intent(requireActivity(), NewPostActivity.class);
+                startActivity(newPostIntent);
+            } else {
+                startActivity(new Intent(requireActivity(), LoginActivity.class));
+            }
+        });
+
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh_home);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             loadPost();
             swipeRefreshLayout.setRefreshing(false);
         });
-
-        //inflate layout for this fragment
-        return view;
     }
 
     private void loadPost() {

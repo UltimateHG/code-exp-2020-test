@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -39,19 +38,6 @@ public class NavActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-        setupViews();
-    }
-
-    private void setupViews() {
-        //Handle add post button
-        FloatingActionButton addPostBtn = findViewById(R.id.add_post_btn);
-        addPostBtn.setOnClickListener((v) -> {
-            if (navViewModel.getFirebaseUser().getValue() != null) {
-                Intent newPostIntent = new Intent(NavActivity.this, NewPostActivity.class);
-                startActivity(newPostIntent);
-            }
-        });
     }
 
     @Override

@@ -12,6 +12,7 @@
 
     <EditText
         android:id="@+id/loginEmailInput"
+        android:layout_marginHorizontal="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
@@ -20,6 +21,7 @@
 
     <EditText
         android:id="@+id/loginPasswordInput"
+        android:layout_marginHorizontal="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
@@ -28,6 +30,7 @@
 
     <Button
         android:id="@+id/loginButton"
+        android:layout_marginHorizontal="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
@@ -44,9 +47,10 @@
 
     <Button
         android:id="@+id/goSignupButton"
+        android:layout_marginHorizontal="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
+        android:layout_marginTop="12dp"
         android:text="@string/signup" />
 
 </LinearLayout>

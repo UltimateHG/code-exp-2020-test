@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.Html;
 import android.text.format.DateFormat;
 import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,9 +73,11 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
         }
 
         public void setTitleText(String newsTitle, String newsLink) {
-            String txt = String.format("<a href=\\\"%s\\\">%s</a>", newsLink, newsTitle);
+            String txt = String.format("<a href=\"%s\">%s</a>", newsLink, newsTitle);
             newTextView = view.findViewById(R.id.news_title);
             newTextView.setText(Html.fromHtml(txt, Html.FROM_HTML_MODE_COMPACT));
+
+            newTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 }
