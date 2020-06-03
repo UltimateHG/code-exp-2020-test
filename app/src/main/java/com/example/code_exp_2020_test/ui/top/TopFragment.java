@@ -102,6 +102,7 @@ public class TopFragment extends Fragment {
     }
 
     private void loadPost() {
+        isFirstPageFirstLoad = true;
         Query query = firebaseFirestore.collection("posts").orderBy("commentCount", Query.Direction.DESCENDING).limit(3);
         registration = query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -109,18 +110,15 @@ public class TopFragment extends Fragment {
                 try {
                     if(!queryDocumentSnapshots.isEmpty()) {
                         //if first page and first load, set top document to latest one
-                        if(isFirstPageFirstLoad) {
-                            lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-1);
-                            blog_list.clear();
-                        }
+                        lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-1);
+                        blog_list.clear();
 
                         for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()) {
                             //updating stuff for when document change occurs
                             if(doc.getType() == DocumentChange.Type.ADDED) {
                                 String blogPostId = doc.getDocument().getId();
                                 BlogPost blogPost = doc.getDocument().toObject(BlogPost.class).withId(blogPostId);
-                                if(isFirstPageFirstLoad) blog_list.add(blogPost);
-                                else blog_list.add(0, blogPost);
+                                blog_list.add(blogPost);
 
                                 blogRecyclerAdapter.notifyDataSetChanged();
                             }
