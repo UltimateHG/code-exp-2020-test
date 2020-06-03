@@ -151,7 +151,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             blogStatus = view.findViewById(R.id.blog_status);
             blogStatus.setText(status);
 
-            switch(status){
+            switch (status)  {
                 case "real":
                     blogStatus.setTextColor(Color.GREEN);
                     break;
