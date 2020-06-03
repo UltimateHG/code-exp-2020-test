@@ -33,6 +33,7 @@
     <string name="title_home">Home</string>
     <string name="title_top">Top</string>
     <string name="title_news">News</string>
+    <string name="title_resource">Resource</string>
     <string name="title_account">Account</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.code_exp_2020_test;
+package com.example.code_exp_2020_test.ui.resource;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

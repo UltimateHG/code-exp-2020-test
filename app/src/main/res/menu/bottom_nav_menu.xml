@@ -17,6 +17,11 @@
         android:title="@string/title_news" />
 
     <item
+        android:id="@+id/navigation_resource"
+        android:icon="@drawable/ic_baseline_collections_bookmark_24"
+        android:title="@string/title_resource" />
+
+    <item
         android:id="@+id/navigation_account"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_account" />

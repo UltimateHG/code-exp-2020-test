@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_news" />
 
     <fragment
+        android:id="@+id/navigation_resource"
+        android:name="com.example.code_exp_2020_test.ui.resource.ResourceFragment"
+        android:label="@string/title_resource"
+        tools:layout="@layout/fragment_resource" />
+
+    <fragment
         android:id="@+id/navigation_account"
         android:name="com.example.code_exp_2020_test.ui.account.AccountFragment"
         android:label="@string/title_account"
