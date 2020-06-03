@@ -77,16 +77,6 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             Toast.makeText(context,"Exception: "+e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-        /*/Set comment count DEPRECATED
-        firebaseFirestore.collection("posts/"+blogPostId+"/comments").addSnapshotListener((queryDocumentSnapshots, e) ->  {
-           if(!queryDocumentSnapshots.isEmpty()) {
-               int commentCount = queryDocumentSnapshots.size();
-               holder.setCommentCount(commentCount);
-           } else {
-               holder.setCommentCount(0);
-           }
-        });*/
-
         //comment button listener
         holder.blogCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override

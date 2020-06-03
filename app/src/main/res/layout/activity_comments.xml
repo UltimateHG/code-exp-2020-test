@@ -97,28 +97,28 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/comment_post_real_btn"/>
+            app:layout_constraintEnd_toStartOf="@id/comment_post_real_btn" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/comment_post_fake_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:padding="8dp"
-            android:src="@drawable/send_fake_button"
+            android:background="@drawable/send_fake_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/comment_post_real_btn" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/comment_post_real_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="80dp"
             android:layout_marginBottom="16dp"
             android:padding="8dp"
-            android:src="@drawable/send_real_button"
+            android:background="@drawable/send_real_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
