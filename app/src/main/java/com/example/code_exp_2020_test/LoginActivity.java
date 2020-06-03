@@ -2,6 +2,7 @@ package com.example.code_exp_2020_test;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -36,6 +37,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        try {
+            if (!TextUtils.isEmpty(user.getDisplayName())) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+        }
+        catch(Exception e){
+
+        }
 
         loginEmailInput = findViewById(R.id.loginEmailInput);
         loginPasswordInput = findViewById(R.id.loginPasswordInput);
