@@ -43,6 +43,7 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         holder.setComment(comment);
         holder.setUsername(commentsList.get(position).getUsername());
         holder.setStatus(commentsList.get(position).getStatus());
+        holder.setUserID(commentsList.get(position).getUser_id()); //THIS MUST BE CALLED LAST
     }
 
     @Override
@@ -63,20 +64,11 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         public void setComment(String message) {
             comment = view.findViewById(R.id.comment_message);
             comment.setText(message);
-
-            if (user.getUid().equals("oiaGsEC4bjeCgRfZEmMruNEL7kZ2")) {
-                comment.setTypeface(null, BOLD);
-            }
-
         }
 
         public void setUsername(String username) {
             comment = view.findViewById(R.id.comment_username);
-            comment.setText(username + " (admin)");
-
-            if (user.getUid().equals("oiaGsEC4bjeCgRfZEmMruNEL7kZ2")) {
-                comment.setTypeface(null, BOLD);
-            }
+            comment.setText(username);
         }
 
         public void setStatus(String status) {
@@ -93,6 +85,16 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
                 default:
                     comment.setTextColor(Color.GRAY);
                     comment.setText("thinks it's confusing...");
+            }
+        }
+
+        public void setUserID(String userID){
+            if (userID.equals("oiaGsEC4bjeCgRfZEmMruNEL7kZ2")) {
+                comment = view.findViewById(R.id.comment_message);
+                comment.setTypeface(null, BOLD);
+                comment = view.findViewById(R.id.comment_username);
+                comment.setText(comment.getText() + " (admin)");
+                comment.setTypeface(null, BOLD);
             }
         }
     }
