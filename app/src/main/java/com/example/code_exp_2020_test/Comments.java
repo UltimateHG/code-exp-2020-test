@@ -9,7 +9,7 @@ public class Comments {
 
     public Comments() {}
 
-    public Comments(String comment, String username, String user_id, Date timestamp) {
+    public Comments(String comment, String username, String user_id, Date timestamp, String status) {
         this.comment = comment;
         this.username = username;
         this.timestamp = timestamp;
