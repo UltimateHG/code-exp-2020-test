@@ -6,71 +6,113 @@
     android:layout_height="match_parent"
     tools:context=".ui.account.AccountFragment">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_gravity="center">
+    <TextView
+        android:id="@+id/accountUsernameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/accountPointsText"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp" />
 
-            <TextView
-                android:id="@+id/accountUsernameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textSize="36sp" />
+    <TextView
+        android:id="@+id/accountPointsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintTop_toBottomOf="@id/accountUsernameText"
+        app:layout_constraintBottom_toTopOf="@id/accountYourPostsText"/>
 
-            <TextView
-                android:id="@+id/accountPointsText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="1"
-                android:text="TextView" />
+    <TextView
+        android:id="@+id/accountYourPostsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountPointsText"
+        app:layout_constraintBottom_toTopOf="@id/yourPostsList"
+        android:text="@string/your_posts" />
 
-            <TextView
-                android:id="@+id/accountYourPostsText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="1"
-                android:text="@string/your_posts" />
+    <TextView
+        android:id="@+id/acc_fragment_placeHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintTop_toBottomOf="@id/accountYourPostsText"
+        app:layout_constraintBottom_toTopOf="@id/account_button_layout"
+        android:gravity="center"/>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_weight="1">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/yourPostsList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountYourPostsText"
+        app:layout_constraintBottom_toTopOf="@id/account_button_layout" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </ScrollView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/account_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginVertical="72dp">
 
-            <Button
-                android:id="@+id/accountChangePasswordButton"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorPrimaryDark"
-                android:text="@string/change_password"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:layout_weight="1"/>
+    <Button
+        android:id="@+id/accountChangePasswordButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/change_password"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/accountLogoutButton"/>
 
-            <Button
-                android:id="@+id/accountLogoutButton"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorPrimaryDark"
-                android:text="@string/logout"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:layout_weight="1"/>
+    <Button
+        android:id="@+id/accountLogoutButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/logout"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/accountChangePasswordButton"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
