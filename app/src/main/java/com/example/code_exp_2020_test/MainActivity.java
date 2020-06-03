@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
      * DECLARE FRAGMENTS HERE
      */
     private HomeFragment homeFragment;
+    private TopFragment topFragment;
+    private AccountFragment accountFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +61,27 @@ public class MainActivity extends AppCompatActivity {
              * INITIALIZE ALL YOUR FRAGMENTS HERE
              */
             homeFragment = new HomeFragment();
+            topFragment = new TopFragment();
+            accountFragment = new AccountFragment();
 
             initializeFragment();
+
+            mainbottomNav.setOnNavigationItemSelectedListener((item) -> {
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_container);
+                switch(item.getItemId()) {
+                    case R.id.bottom_action_home:
+                        replaceFragment(homeFragment, currentFragment);
+                        return true;
+                    case R.id.bottom_action_top:
+                        replaceFragment(topFragment, currentFragment);
+                        return true;
+                    case R.id.bottom_action_account:
+                        replaceFragment(accountFragment, currentFragment);
+                        return true;
+                    default:
+                        return false;
+                }
+            });
 
             //Auth state listener, on auth state change, check if user is now null, then go back to LoginActivity
             authStateListener = (FirebaseAuth.AuthStateListener) (firebaseAuth) -> {
@@ -126,6 +147,30 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //Add all transactions below and hide them
         fragmentTransaction.add(R.id.main_container, homeFragment);
+        fragmentTransaction.add(R.id.main_container, topFragment);
+        fragmentTransaction.add(R.id.main_container, accountFragment);
+        fragmentTransaction.hide(topFragment);
+        fragmentTransaction.hide(accountFragment);
+        fragmentTransaction.commit();
+    }
+
+    private void replaceFragment(Fragment fragment, Fragment currentFragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //Add more ifs for more fragments
+        if(fragment == homeFragment) {
+            fragmentTransaction.hide(topFragment);
+            fragmentTransaction.hide(accountFragment);
+        }
+        if(fragment == topFragment) {
+            fragmentTransaction.hide(homeFragment);
+            fragmentTransaction.hide(accountFragment);
+        }
+        if(fragment == accountFragment) {
+            fragmentTransaction.hide(homeFragment);
+            fragmentTransaction.hide(topFragment);
+        }
+
+        fragmentTransaction.show(fragment);
         fragmentTransaction.commit();
     }
 
