@@ -77,8 +77,6 @@ public class NewPostActivity extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     //If successful, tell user successful post and redirect back to main page.
                     Toast.makeText(NewPostActivity.this, "Your post has been successfully posted!", Toast.LENGTH_LONG).show();
-                    Intent mainIntent = new Intent(NewPostActivity.this, MainActivity.class);
-                    startActivity(mainIntent);
                     finish();
                 } else {
                     //handle exceptions later, placeholder toast here

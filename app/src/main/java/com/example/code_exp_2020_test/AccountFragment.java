@@ -29,7 +29,6 @@ public class AccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getActionBar().setTitle("");
     }
 
     FirebaseAuth mAuth;
@@ -53,6 +52,7 @@ public class AccountFragment extends Fragment {
                 mAuth.signOut();
                 Toast.makeText(getActivity(), "Logout successful.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
+                getActivity().finish();
                 startActivity(intent);
             }
             catch (Exception e){
