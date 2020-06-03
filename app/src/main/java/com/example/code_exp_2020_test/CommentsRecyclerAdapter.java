@@ -11,13 +11,21 @@ import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import static android.graphics.Typeface.BOLD;
+
 public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecyclerAdapter.ViewHolder> {
 
     public List<Comments> commentsList;
     public Context context;
 
+    public FirebaseUser user;
+
     public CommentsRecyclerAdapter(List<Comments> commentsList) {
         this.commentsList = commentsList;
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
@@ -55,11 +63,20 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         public void setComment(String message) {
             comment = view.findViewById(R.id.comment_message);
             comment.setText(message);
+
+            if (user.getUid().equals("oiaGsEC4bjeCgRfZEmMruNEL7kZ2")) {
+                comment.setTypeface(null, BOLD);
+            }
+
         }
 
         public void setUsername(String username) {
             comment = view.findViewById(R.id.comment_username);
-            comment.setText(username);
+            comment.setText(username + " (admin)");
+
+            if (user.getUid().equals("oiaGsEC4bjeCgRfZEmMruNEL7kZ2")) {
+                comment.setTypeface(null, BOLD);
+            }
         }
 
         public void setStatus(String status) {
