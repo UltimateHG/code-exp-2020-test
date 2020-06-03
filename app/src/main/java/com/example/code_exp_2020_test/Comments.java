@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Comments {
     //variables
-    private String comment, username, user_id;
+    private String comment, username, user_id, status;
     private Date timestamp;
 
     public Comments() {}
@@ -14,6 +14,7 @@ public class Comments {
         this.username = username;
         this.timestamp = timestamp;
         this.user_id = user_id;
+        this.status = status;
     }
 
     public String getComment() {return comment;}
@@ -31,4 +32,13 @@ public class Comments {
     public Date getTimestamp() {return timestamp;}
 
     public void setTimestamp(Date timestamp) {this.timestamp = timestamp;}
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

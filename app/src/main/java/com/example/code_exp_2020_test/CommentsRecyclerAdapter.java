@@ -1,6 +1,7 @@
 package com.example.code_exp_2020_test;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         String comment = commentsList.get(position).getComment();
         holder.setComment(comment);
         holder.setUsername(commentsList.get(position).getUsername());
+        holder.setStatus(commentsList.get(position).getStatus());
     }
 
     @Override
@@ -58,6 +60,23 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         public void setUsername(String username) {
             comment = view.findViewById(R.id.comment_username);
             comment.setText(username);
+        }
+
+        public void setStatus(String status) {
+            comment = view.findViewById(R.id.comment_status);
+            switch (status){
+                case "real":
+                    comment.setTextColor(Color.GREEN);
+                    comment.setText("thinks it's " + status);
+                    break;
+                case "fake":
+                    comment.setTextColor(Color.RED);
+                    comment.setText("thinks it's " + status);
+                    break;
+                default:
+                    comment.setTextColor(Color.GRAY);
+                    comment.setText("thinks it's confusing...");
+            }
         }
     }
 }

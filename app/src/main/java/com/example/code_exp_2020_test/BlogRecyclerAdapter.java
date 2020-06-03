@@ -94,6 +94,9 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
                 Intent commentIntent = new Intent(context, CommentsActivity.class);
                 commentIntent.putExtra("blog_post_id", blogPostId);
                 commentIntent.putExtra("username", username);
+                commentIntent.putExtra("status", status);
+                commentIntent.putExtra("body", body);
+                commentIntent.putExtra("title", title);
                 commentIntent.putExtra("commentCount", Integer.toString(commentCount));
                 context.startActivity(commentIntent);
             }
