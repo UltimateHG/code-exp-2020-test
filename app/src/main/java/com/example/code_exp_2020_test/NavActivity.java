@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseUser;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -42,7 +40,6 @@ public class NavActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        setupObservers();
         setupViews();
     }
 
@@ -57,21 +54,27 @@ public class NavActivity extends AppCompatActivity {
         });
     }
 
-    private void setupObservers() {
-        // Create the observer which redirect to login when the user is not logged in.
-        navViewModel.getFirebaseUser().observe(this, new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(@Nullable FirebaseUser user) {
-                if (user == null) {
-                    startActivity(new Intent(NavActivity.this, LoginActivity.class));
-                }
-            }
-        });
-    }
+    // TODO: Move to LoginActivity
+//    private void setupObservers() {
+//        // Create the observer which redirect to login when the user is not logged in.
+//        navViewModel.getFirebaseUser().observe(this, new Observer<FirebaseUser>() {
+//            @Override
+//            public void onChanged(@Nullable FirebaseUser user) {
+//                if (user == null) {
+//                    startActivity(new Intent(NavActivity.this, LoginActivity.class));
+//                }
+//            }
+//        });
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        if (navViewModel.getFirebaseUser().getValue() == null) {
+            menu.removeItem(R.id.action_logout_btn);
+        } else {
+            menu.removeItem(R.id.action_login_btn);
+        }
         return true;
     }
 
@@ -81,7 +84,8 @@ public class NavActivity extends AppCompatActivity {
             case R.id.action_logout_btn:
                 logout();
                 return true;
-            case R.id.action_settings_btn:
+            case R.id.action_login_btn:
+                login();
                 return true;
             default:
                 return true;
@@ -91,5 +95,10 @@ public class NavActivity extends AppCompatActivity {
     private void logout() {
         navViewModel.getFirebaseAuth().signOut();
         navViewModel.refreshFirebaseUser();
+        Toast.makeText(this, "Logout successful.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void login() {
+        startActivity(new Intent(NavActivity.this, LoginActivity.class));
     }
 }
