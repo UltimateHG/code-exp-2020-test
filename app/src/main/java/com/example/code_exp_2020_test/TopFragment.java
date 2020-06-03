@@ -1,4 +1,6 @@
 package com.example.code_exp_2020_test;
 
-public class TopFragment {
+import androidx.fragment.app.Fragment;
+
+public class TopFragment extends Fragment {
 }
