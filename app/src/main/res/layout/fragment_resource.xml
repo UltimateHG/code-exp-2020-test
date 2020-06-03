@@ -13,12 +13,16 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
                 <TextView
                     android:text="Websites and Social Media"
-                    android:textSize="28dp"
+                    android:textSize="24dp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="18dp"/>
+                    android:layout_marginBottom="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
                 <TextView/>
             </TableRow>
             <TableRow

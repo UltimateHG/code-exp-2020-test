@@ -54,21 +54,13 @@ public class SignupActivity extends AppCompatActivity {
         goLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        /*
-        if (currentUser != null){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }*/
     }
 
     public void createUser(){
@@ -101,8 +93,6 @@ public class SignupActivity extends AppCompatActivity {
 
                                 Toast.makeText(SignupActivity.this, "Registration successful! Please sign in.",
                                         Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                startActivity(intent);
                                 finish();
                             } else {
                                 // If sign in fails, display a message to the user.

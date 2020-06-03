@@ -38,6 +38,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import static android.app.Activity.RESULT_OK;
+
 public class AccountFragment extends Fragment {
     Button accountLogoutButton;
     Button accountChangePasswordButton;
@@ -96,9 +98,9 @@ public class AccountFragment extends Fragment {
             try {
                 mAuth.signOut();
                 Toast.makeText(getActivity(), "Logout successful.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                getActivity().finish();
+                Intent intent = new Intent(getActivity(), NavActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
             catch (Exception e){
                 Toast.makeText(getActivity(), "Logout failed. Try again later", Toast.LENGTH_SHORT).show();
@@ -135,7 +137,7 @@ public class AccountFragment extends Fragment {
                             blogRecyclerAdapter.notifyDataSetChanged();
                         }
                     }
-                    if(blog_list.isEmpty()) ((TextView)root.findViewById(R.id.acc_fragment_placeHolder)).setText("");
+                    if(blog_list.isEmpty()) ((TextView)root.findViewById(R.id.acc_fragment_placeHolder)).setText("You have no posts :(");
                 }
             }
         });

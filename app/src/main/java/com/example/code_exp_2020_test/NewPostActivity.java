@@ -24,11 +24,9 @@ import java.util.Map;
 
 public class NewPostActivity extends AppCompatActivity {
 
-    private Toolbar newPostToolbar;
     private EditText newPostTitle, newPostBody;
     private Button newPostButton;
 
-    private StorageReference storageReference;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
@@ -39,7 +37,6 @@ public class NewPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
         //Initialize variables
-        storageReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = firebaseAuth.getInstance();
 
