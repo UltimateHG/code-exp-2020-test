@@ -2,6 +2,7 @@ package com.example.code_exp_2020_test;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.format.DateFormat;
 import android.text.style.UnderlineSpan;
@@ -146,9 +147,21 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             blogUsername.setText(username);
         }
 
-        public void setStatus(String username) {
+        public void setStatus(String status) {
             blogStatus = view.findViewById(R.id.blog_status);
-            blogStatus.setText(username);
+            blogStatus.setText(status);
+
+            switch(status){
+                case "real":
+                    blogStatus.setTextColor(Color.GREEN);
+                    break;
+                case "fake":
+                    blogStatus.setTextColor(Color.RED);
+                    break;
+                default:
+                    blogStatus.setTextColor(Color.GRAY);
+                    break;
+            }
         }
 
         public void setCommentCount(int count) {
