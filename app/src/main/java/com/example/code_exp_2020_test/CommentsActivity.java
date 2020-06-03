@@ -51,8 +51,6 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
 
-        commentToolbar = findViewById(R.id.comment_toolbar);
-        setActionBar(commentToolbar);
         getSupportActionBar().setTitle("Comments");
 
         firebaseAuth = FirebaseAuth.getInstance();

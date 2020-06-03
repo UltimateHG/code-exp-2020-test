@@ -2,7 +2,9 @@ package com.example.code_exp_2020_test;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.SpannableString;
 import android.text.format.DateFormat;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +116,9 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         public void setTitleText(String titleText) {
             blogTitle = view.findViewById(R.id.blog_title);
-            blogTitle.setText(titleText);
+            SpannableString title = new SpannableString(titleText);
+            title.setSpan(new UnderlineSpan(), 0, title.length(), 0);
+            blogTitle.setText(title);
         }
 
         public void setBodyText(String bodyText) {
