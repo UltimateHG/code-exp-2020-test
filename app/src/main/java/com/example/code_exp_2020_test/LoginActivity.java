@@ -36,8 +36,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+        /*
         try {
             if (!TextUtils.isEmpty(user.getDisplayName())) {
                 Intent intent = new Intent(this, NavActivity.class);
@@ -48,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         catch(Exception e){
 
         }
-
+        */
         loginEmailInput = findViewById(R.id.loginEmailInput);
         loginPasswordInput = findViewById(R.id.loginPasswordInput);
 
