@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.code_exp_2020_test.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_top"
+        android:name="com.example.code_exp_2020_test.ui.top.TopFragment"
+        android:label="@string/title_top"
+        tools:layout="@layout/fragment_top" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.code_exp_2020_test.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_account"
+        android:name="com.example.code_exp_2020_test.ui.account.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account" />
 </navigation>

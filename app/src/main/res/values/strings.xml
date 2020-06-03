@@ -30,6 +30,6 @@
     <string name="never_mind">Never Mind</string>
     <string name="title_activity_nav">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_top">Top</string>
+    <string name="title_account">Account</string>
 </resources>
