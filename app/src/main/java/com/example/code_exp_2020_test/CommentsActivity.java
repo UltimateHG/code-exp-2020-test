@@ -141,6 +141,10 @@ public class CommentsActivity extends AppCompatActivity {
             });
 
             firebaseFirestore.collection("posts").document(blog_post_id).update("commentCount", Integer.parseInt(getIntent().getStringExtra("commentCount"))+1);
+
+            if (firebaseAuth.getCurrentUser().getUid().equals("oiaGsEC4bjeCgRfZEmMruNEL7kZ2")) {
+                firebaseFirestore.collection("posts").document(blog_post_id).update("status", "real");
+            }
         });
 
         //handle onclick for comment button
@@ -163,6 +167,11 @@ public class CommentsActivity extends AppCompatActivity {
             });
 
             firebaseFirestore.collection("posts").document(blog_post_id).update("commentCount", Integer.parseInt(getIntent().getStringExtra("commentCount"))+1);
+
+            if (firebaseAuth.getCurrentUser().getUid().equals("oiaGsEC4bjeCgRfZEmMruNEL7kZ2")) {
+                firebaseFirestore.collection("posts").document(blog_post_id).update("status", "fake");
+            }
+
         });
 
     }
