@@ -82,7 +82,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             newsBody.setText(bodyText);
 
             //supposedly allows hyperlink, might need to edit string
-            newsBody.setMovementMethod(LinkMovementMethod.getInstance());
+            //newsBody.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
     }
