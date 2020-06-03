@@ -1,6 +1,7 @@
 package com.example.code_exp_2020_test;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.format.DateFormat;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -44,9 +45,8 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
 
         //set title and link
         String title = news_list.get(position).getTitle();
-        String body = news_list.get(position).getLink();
-        holder.setTitleText(title);
-        holder.setLinkText(body);
+        String link = news_list.get(position).getLink();
+        holder.setTitleText(title, link);
 
 
     }
@@ -64,26 +64,17 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private View view;
-        private TextView newsTitle;
-        private TextView newsBody;
+        private TextView newTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             view = itemView;
         }
 
-        public void setTitleText(String titleText) {
-            newsTitle = view.findViewById(R.id.news_title);
-            newsTitle.setText(titleText);
+        public void setTitleText(String newsTitle, String newsLink) {
+            String txt = String.format("<a href=\\\"%s\\\">%s</a>", newsLink, newsTitle);
+            newTextView = view.findViewById(R.id.news_title);
+            newTextView.setText(Html.fromHtml(txt, Html.FROM_HTML_MODE_COMPACT));
         }
-
-        public void setLinkText(String bodyText) {
-            newsBody = view.findViewById(R.id.news_link);
-            newsBody.setText(bodyText);
-
-            //supposedly allows hyperlink, might need to edit string
-            //newsBody.setMovementMethod(LinkMovementMethod.getInstance());
-        }
-
     }
 }

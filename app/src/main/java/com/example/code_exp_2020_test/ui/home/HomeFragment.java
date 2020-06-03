@@ -8,19 +8,19 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.code_exp_2020_test.BlogPost;
 import com.example.code_exp_2020_test.BlogRecyclerAdapter;
+import com.example.code_exp_2020_test.NavViewModel;
 import com.example.code_exp_2020_test.R;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+
+    private NavViewModel navViewModel;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<BlogPost> blog_list;
@@ -40,13 +42,13 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        navViewModel = new ViewModelProvider(requireActivity()).get(NavViewModel.class);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
 
         //define basic variables
         blog_list = new ArrayList<>();
         //variables
-        RecyclerView blog_list_view = view.findViewById(R.id.blog_list_view);
+        RecyclerView blog_list_view = view.findViewById(R.id.blog_list_view_home);
 
         //init variables
         blogRecyclerAdapter = new BlogRecyclerAdapter(blog_list);
@@ -69,7 +71,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh_home);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             loadPost();
             swipeRefreshLayout.setRefreshing(false);

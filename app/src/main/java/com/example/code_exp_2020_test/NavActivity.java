@@ -34,7 +34,7 @@ public class NavActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_top, R.id.navigation_account)
+                R.id.navigation_home, R.id.navigation_top, R.id.navigation_news, R.id.navigation_account)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -53,19 +53,6 @@ public class NavActivity extends AppCompatActivity {
             }
         });
     }
-
-    // TODO: Move to LoginActivity
-//    private void setupObservers() {
-//        // Create the observer which redirect to login when the user is not logged in.
-//        navViewModel.getFirebaseUser().observe(this, new Observer<FirebaseUser>() {
-//            @Override
-//            public void onChanged(@Nullable FirebaseUser user) {
-//                if (user == null) {
-//                    startActivity(new Intent(NavActivity.this, LoginActivity.class));
-//                }
-//            }
-//        });
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
