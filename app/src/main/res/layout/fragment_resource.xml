@@ -370,6 +370,7 @@
                     android:text="COVID-19 Chat for Biz businesses"
                     android:layout_weight="1"/>
                 <TextView
+                    android:autoLink="web"
                     android:text="https://www.mti.gov.sg/Chatbot/chat"
                     android:layout_weight="1"/>
                 <TextView/>
@@ -379,6 +380,7 @@
                     android:text="Provides tailored legal information on divorce and family violence"
                     android:layout_weight="1"/>
                 <TextView
+                    android:autoLink="web"
                     android:text="https://lab.mlaw.gov.sg/"
                     android:layout_weight="1"/>
                 <TextView/>
