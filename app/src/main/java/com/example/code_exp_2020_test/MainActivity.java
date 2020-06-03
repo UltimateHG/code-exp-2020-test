@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
      * DECLARE FRAGMENTS HERE
      */
     private HomeFragment homeFragment;
+    private NewsFragment newsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
              * INITIALIZE ALL YOUR FRAGMENTS HERE
              */
             homeFragment = new HomeFragment();
+            newsFragment = new NewsFragment();
 
             initializeFragment();
 
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //Add all transactions below and hide them
-        fragmentTransaction.add(R.id.main_container, homeFragment);
+        fragmentTransaction.add(R.id.main_container, newsFragment);
         fragmentTransaction.commit();
     }
 

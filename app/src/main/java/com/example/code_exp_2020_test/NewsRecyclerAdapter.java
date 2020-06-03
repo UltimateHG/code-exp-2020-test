@@ -53,7 +53,12 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
 
 
     @Override
-    public int getItemCount() {return news_list.size();}
+    public int getItemCount() {
+        try{return news_list.size();}
+        catch (NullPointerException e){
+            return 0; //lol good programming kappa
+        }
+    }
 
     //Custom viewholder class with helper functions
     public class ViewHolder extends RecyclerView.ViewHolder {
