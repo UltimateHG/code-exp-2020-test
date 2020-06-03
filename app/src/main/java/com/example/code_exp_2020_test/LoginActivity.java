@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        /*
+
         try {
             if (!TextUtils.isEmpty(user.getDisplayName())) {
                 Intent intent = new Intent(this, NavActivity.class);
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         catch(Exception e){
 
         }
-        */
+
         loginEmailInput = findViewById(R.id.loginEmailInput);
         loginPasswordInput = findViewById(R.id.loginPasswordInput);
 
