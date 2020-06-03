@@ -12,16 +12,14 @@
         <activity
             android:name=".NavActivity"
             android:label="@string/title_activity_nav">
-
-        </activity>
-        <activity android:name=".ChangePasswordActivity" />
-        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".SignupActivity" />
         <activity android:name=".DebugMainActivity" />
         <activity android:name=".NewPostActivity" />
