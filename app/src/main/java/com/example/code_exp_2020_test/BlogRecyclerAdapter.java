@@ -1,6 +1,7 @@
 package com.example.code_exp_2020_test;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +77,17 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
            } else {
                holder.updateCommentCount(0);
            }
+        });
+
+        //comment button listener
+        holder.blogCommentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent commentIntent = new Intent(context, CommentsActivity.class);
+                commentIntent.putExtra("blog_post_id", blogPostId);
+                commentIntent.putExtra("username", username);
+                context.startActivity(commentIntent);
+            }
         });
     }
 
