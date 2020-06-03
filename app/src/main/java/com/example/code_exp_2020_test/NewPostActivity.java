@@ -68,7 +68,9 @@ public class NewPostActivity extends AppCompatActivity {
             postMap.put("body", body);
             postMap.put("user_id",current_user_id);
             postMap.put("username", firebaseAuth.getCurrentUser().getDisplayName());
+            postMap.put("status", "unverified");
             postMap.put("timestamp", FieldValue.serverTimestamp());
+            postMap.put("commentCount", 0);
 
             //Store hashmap into firebase
             firebaseFirestore.collection("posts").add(postMap).addOnCompleteListener((task) -> {

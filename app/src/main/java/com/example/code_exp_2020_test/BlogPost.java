@@ -5,17 +5,20 @@ import java.util.Date;
 public class BlogPost extends BlogPostId {
 
     //variables
-    public String user_id, title, body, username;
+    public String user_id, title, body, username, status;
     public Date timestamp;
+    public int commentCount;
 
     public BlogPost() {}
 
-    public BlogPost(String user_id, String username, String title, String body, Date timestamp) {
+    public BlogPost(String user_id, String username, String title, String body, Date timestamp, String status, int commentCount) {
         this.user_id = user_id;
         this.title = title;
         this.body = body;
         this.timestamp = timestamp;
         this.username = username;
+        this.status = status;
+        this.commentCount = commentCount;
     }
 
     public String getUser_id() {
@@ -56,6 +59,22 @@ public class BlogPost extends BlogPostId {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
 }
