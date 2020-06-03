@@ -19,6 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.code_exp_2020_test.BlogPost;
 import com.example.code_exp_2020_test.BlogRecyclerAdapter;
+import com.example.code_exp_2020_test.NavViewModel;
 import com.example.code_exp_2020_test.R;
 import com.example.code_exp_2020_test.ui.account.AccountViewModel;
 import com.example.code_exp_2020_test.ui.home.HomeViewModel;
@@ -37,6 +38,7 @@ import java.util.List;
 
 public class TopFragment extends Fragment {
 
+    private NavViewModel navViewModel;
     private HomeViewModel topViewModel;
 
     //variables
@@ -53,13 +55,14 @@ public class TopFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        navViewModel = new ViewModelProvider(requireActivity()).get(NavViewModel.class);
         topViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_top, container, false);
 
 
         //define basic variables
         blog_list = new ArrayList<>();
-        blog_list_view = view.findViewById(R.id.blog_list_view);
+        blog_list_view = view.findViewById(R.id.blog_list_view_top);
 
         //init variables
         blogRecyclerAdapter = new BlogRecyclerAdapter(blog_list);
@@ -82,7 +85,7 @@ public class TopFragment extends Fragment {
             }
         });
 
-        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh_top);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             loadPost();
             swipeRefreshLayout.setRefreshing(false);
