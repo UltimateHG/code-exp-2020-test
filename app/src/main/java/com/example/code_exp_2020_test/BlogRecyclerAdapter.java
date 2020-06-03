@@ -52,7 +52,6 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         holder.setIsRecyclable(false);
         //initialize variables
         final String blogPostId = blog_list.get(position).BlogPostId;
-        final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
         //set title, body, user id and username
         String title = blog_list.get(position).getTitle();

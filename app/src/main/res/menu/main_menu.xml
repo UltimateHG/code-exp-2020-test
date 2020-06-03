@@ -13,4 +13,7 @@
     <item
         android:id="@+id/action_logout_btn"
         android:title="@string/action_logout_text" />
+    <item
+        android:id="@+id/action_login_btn"
+        android:title="@string/action_login_text" />
 </menu>
