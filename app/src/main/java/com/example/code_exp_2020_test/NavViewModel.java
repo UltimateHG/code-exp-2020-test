@@ -1,5 +1,7 @@
 package com.example.code_exp_2020_test;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,6 +15,7 @@ public class NavViewModel extends ViewModel {
     private FirebaseAuth mAuth;
 
     public NavViewModel() {
+        Log.i("VM", "Hi");
         mAuth = FirebaseAuth.getInstance();
         mUser = new MutableLiveData<>();
         mUser.setValue(mAuth.getCurrentUser());
