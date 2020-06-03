@@ -1,15 +1,22 @@
 package com.example.code_exp_2020_test;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.util.Pair;
 
 public class ExploreFragment extends Fragment {
+
+    private Context mContext;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,9 +37,9 @@ public class ExploreFragment extends Fragment {
         CardView card = new CardView(mContext);
 
         // Set the CardView layoutParams
-        LayoutParams params = new LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(   //sets width and height of card, might change later
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
         );
         card.setLayoutParams(params);
 
