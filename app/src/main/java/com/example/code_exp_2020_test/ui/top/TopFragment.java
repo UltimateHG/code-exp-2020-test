@@ -1,35 +1,30 @@
 package com.example.code_exp_2020_test.ui.top;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.code_exp_2020_test.BlogPost;
 import com.example.code_exp_2020_test.BlogRecyclerAdapter;
+import com.example.code_exp_2020_test.LoginActivity;
 import com.example.code_exp_2020_test.NavViewModel;
+import com.example.code_exp_2020_test.NewPostActivity;
 import com.example.code_exp_2020_test.R;
-import com.example.code_exp_2020_test.ui.account.AccountViewModel;
-import com.example.code_exp_2020_test.ui.home.HomeViewModel;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -39,11 +34,9 @@ import java.util.List;
 public class TopFragment extends Fragment {
 
     private NavViewModel navViewModel;
-    private HomeViewModel topViewModel;
 
     //variables
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView blog_list_view;
     private List<BlogPost> blog_list;
     private BlogRecyclerAdapter blogRecyclerAdapter;
     private Boolean isFirstPageFirstLoad = true;
@@ -51,18 +44,20 @@ public class TopFragment extends Fragment {
     //firebase stuff
     private FirebaseFirestore firebaseFirestore;
     private DocumentSnapshot lastVisible;
-    private ListenerRegistration registration;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         navViewModel = new ViewModelProvider(requireActivity()).get(NavViewModel.class);
-        topViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View view = inflater.inflate(R.layout.fragment_top, container, false);
+        setupViews(view, container);
 
+        return view;
+    }
 
+    private void setupViews(View view, ViewGroup container) {
         //define basic variables
         blog_list = new ArrayList<>();
-        blog_list_view = view.findViewById(R.id.blog_list_view_top);
+        RecyclerView blog_list_view = view.findViewById(R.id.blog_list_view_top);
 
         //init variables
         blogRecyclerAdapter = new BlogRecyclerAdapter(blog_list);
@@ -76,12 +71,23 @@ public class TopFragment extends Fragment {
 
         blog_list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                Boolean reachedBottom = !recyclerView.canScrollVertically(1);
+                boolean reachedBottom = !recyclerView.canScrollVertically(1);
                 if(reachedBottom){
                     loadMorePost();
                 }
+            }
+        });
+
+        //Handle add post button
+        FloatingActionButton addPostBtn = view.findViewById(R.id.add_post_btn);
+        addPostBtn.setOnClickListener((v) -> {
+            if (navViewModel.getFirebaseUser().getValue() != null) {
+                Intent newPostIntent = new Intent(requireActivity(), NewPostActivity.class);
+                startActivity(newPostIntent);
+            } else {
+                startActivity(new Intent(requireActivity(), LoginActivity.class));
             }
         });
 
@@ -90,45 +96,37 @@ public class TopFragment extends Fragment {
             loadPost();
             swipeRefreshLayout.setRefreshing(false);
         });
-
-        //inflate layout for this fragment
-        return view;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        registration.remove();
-    }
 
     private void loadPost() {
         isFirstPageFirstLoad = true;
         Query query = firebaseFirestore.collection("posts").orderBy("commentCount", Query.Direction.DESCENDING).limit(3);
-        registration = query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                try {
-                    if(!queryDocumentSnapshots.isEmpty()) {
-                        //if first page and first load, set top document to latest one
+        query.addSnapshotListener((queryDocumentSnapshots, e) -> {
+            try {
+                if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                    //if first page and first load, set top document to latest one
+                    if(isFirstPageFirstLoad) {
                         lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-1);
                         blog_list.clear();
-
-                        for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()) {
-                            //updating stuff for when document change occurs
-                            if(doc.getType() == DocumentChange.Type.ADDED) {
-                                String blogPostId = doc.getDocument().getId();
-                                BlogPost blogPost = doc.getDocument().toObject(BlogPost.class).withId(blogPostId);
-                                blog_list.add(blogPost);
-
-                                blogRecyclerAdapter.notifyDataSetChanged();
-                            }
-                        }
-                        //loaded once alr, set this to false
-                        isFirstPageFirstLoad = false;
                     }
-                } catch(NullPointerException e1) {
-                    Log.d("error", e1.toString());
+
+                    for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()) {
+                        //updating stuff for when document change occurs
+                        if(doc.getType() == DocumentChange.Type.ADDED) {
+                            String blogPostId = doc.getDocument().getId();
+                            BlogPost blogPost = doc.getDocument().toObject(BlogPost.class).withId(blogPostId);
+                            if(isFirstPageFirstLoad) blog_list.add(blogPost);
+                            else blog_list.add(0, blogPost);
+
+                            blogRecyclerAdapter.notifyDataSetChanged();
+                        }
+                    }
+                    //loaded once alr, set this to false
+                    isFirstPageFirstLoad = false;
                 }
+            } catch(NullPointerException e1) {
+                Log.d("error", e1.toString());
             }
         });
     }
@@ -140,8 +138,8 @@ public class TopFragment extends Fragment {
                 .startAfter(lastVisible)
                 .limit(3);
 
-        nextQuery.addSnapshotListener(getActivity(), (queryDocumentSnapshots, e) -> {
-            if(!queryDocumentSnapshots.isEmpty()) {
+        nextQuery.addSnapshotListener((EventListener<QuerySnapshot>) (queryDocumentSnapshots, e) -> {
+            if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
                 lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-1);
 
                 for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()) {

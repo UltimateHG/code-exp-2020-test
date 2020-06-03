@@ -65,6 +65,7 @@ public class AccountFragment extends Fragment {
 
         if (mAuth.getCurrentUser() == null) {
             startActivity(new Intent(getActivity(), LoginActivity.class));
+            return null;
         }
 
         accountUsernameText = (TextView)root.findViewById(R.id.accountUsernameText);
