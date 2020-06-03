@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -28,10 +29,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CommentsActivity extends AppCompatActivity {
+    //post stuff
+    private TextView comment_post_user_name;
+    private TextView comment_post_title;
+    private TextView comment_post_status;
+    private TextView comment_post_body;
+    private TextView comment_post_date;
+
     //view stuff
     private Toolbar commentToolbar;
     private EditText comment_field;
-    private ImageView comment_post_btn;
+    private ImageView comment_post_fake_btn;
+    private ImageView comment_post_real_btn;
     private RecyclerView comment_list;
     private CommentsRecyclerAdapter commentsRecyclerAdapter;
     private List<Comments> commentsList;
@@ -43,8 +52,12 @@ public class CommentsActivity extends AppCompatActivity {
 
     //blog and user ids
     private String blog_post_id;
-    private String current_user_id;
-    private String current_username;
+    private String blog_post_user_id;
+    private String blog_post_username;
+    private String blog_post_status;
+    private String blog_post_title;
+    private String blog_post_date;
+    private String blog_post_body;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +69,28 @@ public class CommentsActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        current_user_id = firebaseAuth.getCurrentUser().getUid();
+        blog_post_user_id = firebaseAuth.getCurrentUser().getUid();
         blog_post_id = getIntent().getStringExtra("blog_post_id");
-        current_username = getIntent().getStringExtra("username");
+        blog_post_username = getIntent().getStringExtra("username");
+        blog_post_status = getIntent().getStringExtra("status");
+        blog_post_date = getIntent().getStringExtra("date");
+        blog_post_title = getIntent().getStringExtra("title");
+        blog_post_body = getIntent().getStringExtra("body");
+
+        comment_post_user_name = findViewById(R.id.comment_post_user_name);
+        comment_post_user_name.setText(blog_post_username);
+        comment_post_status = findViewById(R.id.comment_post_status);
+        comment_post_status.setText(blog_post_status);
+        comment_post_date = findViewById(R.id.comment_post_date);
+        comment_post_date.setText(blog_post_date);
+        comment_post_title = findViewById(R.id.comment_post_title);
+        comment_post_title.setText(blog_post_title);
+        comment_post_body = findViewById(R.id.comment_post_body);
+        comment_post_body.setText(blog_post_body);
 
         comment_field = findViewById(R.id.comment_field);
-        comment_post_btn = findViewById(R.id.comment_post_btn);
+        comment_post_fake_btn = findViewById(R.id.comment_post_fake_btn);
+        comment_post_real_btn = findViewById(R.id.comment_post_real_btn);
         comment_list = findViewById(R.id.comment_list);
 
         //RecyclerView Firebase List
@@ -93,15 +122,15 @@ public class CommentsActivity extends AppCompatActivity {
             }
         });
 
-        //handle onclick for comment button
-        comment_post_btn.setOnClickListener((v) -> {
+        comment_post_real_btn.setOnClickListener((v) -> {
             String comment = comment_field.getText().toString();
             //put it to a map
             Map<String, Object> commentsMap = new HashMap<>();
             commentsMap.put("comment", comment);
-            commentsMap.put("username", current_username);
-            commentsMap.put("user_id", current_user_id);
+            commentsMap.put("username", firebaseAuth.getCurrentUser().getDisplayName());
+            commentsMap.put("user_id", firebaseAuth.getCurrentUser().getUid());
             commentsMap.put("timestamp", FieldValue.serverTimestamp());
+            commentsMap.put("status", "real");
 
             firebaseFirestore.collection("posts/"+blog_post_id+"/comments").add(commentsMap).addOnCompleteListener((task) -> {
                 if(!task.isSuccessful()) {
@@ -113,6 +142,29 @@ public class CommentsActivity extends AppCompatActivity {
 
             firebaseFirestore.collection("posts").document(blog_post_id).update("commentCount", Integer.parseInt(getIntent().getStringExtra("commentCount"))+1);
         });
+
+        //handle onclick for comment button
+        comment_post_fake_btn.setOnClickListener((v) -> {
+            String comment = comment_field.getText().toString();
+            //put it to a map
+            Map<String, Object> commentsMap = new HashMap<>();
+            commentsMap.put("comment", comment);
+            commentsMap.put("username", firebaseAuth.getCurrentUser().getDisplayName());
+            commentsMap.put("user_id", firebaseAuth.getCurrentUser().getUid());
+            commentsMap.put("timestamp", FieldValue.serverTimestamp());
+            commentsMap.put("status", "fake");
+
+            firebaseFirestore.collection("posts/"+blog_post_id+"/comments").add(commentsMap).addOnCompleteListener((task) -> {
+                if(!task.isSuccessful()) {
+                    Toast.makeText(CommentsActivity.this,"Error posting comment: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    comment_field.setText("");
+                }
+            });
+
+            firebaseFirestore.collection("posts").document(blog_post_id).update("commentCount", Integer.parseInt(getIntent().getStringExtra("commentCount"))+1);
+        });
+
     }
 
     @Override
