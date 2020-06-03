@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TopFragment extends Fragment {
+public class HomeOldFragment extends Fragment {
     //fragment initialization
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -44,7 +44,7 @@ public class TopFragment extends Fragment {
     private DocumentSnapshot lastVisible;
     private ListenerRegistration registration;
 
-    public TopFragment() {}
+    public HomeOldFragment() {}
 
     /**
      * Create new instance of this fragment with param1 and param2
@@ -103,7 +103,7 @@ public class TopFragment extends Fragment {
                 }
             });
 
-            Query query = firebaseFirestore.collection("posts").limit(3);
+            Query query = firebaseFirestore.collection("posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(3);
             registration = query.addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
