@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResourceFragment">
+    
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow>
+                <TextView
+                    android:text="Websites and Social Media"
+                    android:textSize="28dp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="18dp"/>
+                <TextView/>
+            </TableRow>
+            <TableRow
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Official Websites"/>
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Ministry of Health"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://www.moh.gov.sg/covid-19"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Gov.sg COVID-19"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://www.gov.sg/features/covid-19"
+                        android:autoLink="web"/>
+                </LinearLayout>
+            </TableRow>
+            <TableRow
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Gov.sg social media channels"/>
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Gov.sg Whatsapp Subscription(Local)"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://go.gov.sg/whatsapp"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Gov.sg Whatsapp Subscription(Overseas)"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://go.gov.sg/whatsapp-overseas"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Gov.sg Telegram"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://go.gov.sg/govsg-telegram"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Gov.sg Facebook"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://go.gov.sg/govsg-fb"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Gov.sg Twitter"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://go.gov.sg/twitter"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Gov.sg Instagram"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://go.gov.sg/govsg-ig"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Gov.sg Youtube"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://go%2Cgov%2Csg/yt"
+                        android:autoLink="web"/>
+                </LinearLayout>
+            </TableRow>
+            <TableRow
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Government COVID Symptom Checker"/>
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Symptom Checker"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="sgcovidcheck.gov.sg"
+                        android:autoLink="web"/>
+                </LinearLayout>
+            </TableRow>
+            <TableRow
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Go Where"/>
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Support go where"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://www.supportgowhere.gov.sg/"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Flu go where"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://www.phpc.gov.sg/"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Mask go where"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://www.maskgowhere.sg/"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Meh go where"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://www.gov.sg/article/mehgowhere.sg"
+                        android:autoLink="web"/>
+                </LinearLayout>
+            </TableRow>
+            <TableRow
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="OneMap"/>
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="OneMap website"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://www.onemap.sg/"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="OneMap iOS"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://apps.apple.com/sg/app/onemap-sg/id1244720012"
+                        android:autoLink="web"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="OneMap Android"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:textSize="10dp"
+                        android:text="https://play.google.com/store/apps/details?id=sg.onemap.android.onemap2"
+                        android:autoLink="web"/>
+                </LinearLayout>
+            </TableRow>
+            <!--   Hotlines   -->
+            <TableRow>
+                <TextView
+                    android:text="Hotlines"
+                    android:textSize="20dp"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="National CARE Hotline"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="1800 202 6868"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="For queries on the COVID-19 situation "
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="1800 333 9999"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="For Stay Home Notice related matters"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="6812 5555"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="For financial assistance (ComCare)"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="1800 222 0000"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="For limited service at preschools"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="Contact preschool directly as they may exercise discretion for exceptional cases."
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="For caregivers of seniors (AIC hotline)"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="1800 650 6060"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="For those facing high levels of general anxiety or stress during the circuit breaker periode"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="6202 6868"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="For separated/divorced parents with access arrangements"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="6324 0024"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Institute of Mental Health's Mental Health Helpline"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="6389 2222"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="PAVE Integratedd Services for Individual and Family Protection"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="6555 0390"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <!--   Chatbots   -->
+            <TableRow>
+                <TextView
+                    android:text="Chatbots"
+                    android:textSize="20dp"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="COVID-19 Info Bot"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:autoLink="web"
+                    android:text="https://www.gov.sg/infobot"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="COVID-19 Chat for Biz businesses"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="https://www.mti.gov.sg/Chatbot/chat"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Provides tailored legal information on divorce and family violence"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:text="https://lab.mlaw.gov.sg/"
+                    android:layout_weight="1"/>
+                <TextView/>
+            </TableRow>
+        </TableLayout>
+
+    </ScrollView>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</FrameLayout>
