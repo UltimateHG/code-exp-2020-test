@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -57,6 +59,7 @@ public class AccountFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
 
     private AccountViewModel accountViewModel;
+    private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -66,7 +69,7 @@ public class AccountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() == null) {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            startActivityForResult(new Intent(getActivity(), LoginActivity.class), LOGIN_ACTIVITY_REQUEST_CODE);
             return null;
         }
 
@@ -98,9 +101,8 @@ public class AccountFragment extends Fragment {
             try {
                 mAuth.signOut();
                 Toast.makeText(getActivity(), "Logout successful.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), NavActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_home);
             }
             catch (Exception e){
                 Toast.makeText(getActivity(), "Logout failed. Try again later", Toast.LENGTH_SHORT).show();
@@ -141,5 +143,23 @@ public class AccountFragment extends Fragment {
                 }
             }
         });
+    }
+
+    // This method is called when the second activity finishes
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check that it is the SecondActivity with an OK result
+        if (requestCode == LOGIN_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_account);
+            } else {
+                Toast.makeText(getActivity(), "Logout cancelled :(", Toast.LENGTH_SHORT).show();
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_home);
+            }
+        }
     }
 }
