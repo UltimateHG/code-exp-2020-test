@@ -8,8 +8,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseUser;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -43,6 +46,8 @@ public class NavActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        setupObservers();
     }
 
     @Override
@@ -70,30 +75,29 @@ public class NavActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        navViewModel.refreshFirebaseUser();
+    }
+
+    private void setupObservers() {
+        // Create the observer which redirect to login when the user is not logged in.
+        navViewModel.getFirebaseUser().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(@Nullable FirebaseUser user) {
+                invalidateOptionsMenu();
+            }
+        });
+    }
+
     private void logout() {
         navViewModel.getFirebaseAuth().signOut();
         navViewModel.refreshFirebaseUser();
         Toast.makeText(this, "Logout successful.", Toast.LENGTH_SHORT).show();
-        invalidateOptionsMenu();
     }
-
-    private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
 
     private void login() {
-        startActivityForResult(new Intent(NavActivity.this, LoginActivity.class), LOGIN_ACTIVITY_REQUEST_CODE);
-    }
-
-    // This method is called when the second activity finishes
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Check that it is the SecondActivity with an OK result
-        if (requestCode == LOGIN_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                navViewModel.refreshFirebaseUser();
-                invalidateOptionsMenu();
-            }
-        }
+        startActivity(new Intent(NavActivity.this, LoginActivity.class));
     }
 }

@@ -213,7 +213,7 @@ public class CommentsActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
+    private final static int LOGIN_ACTIVITY_REQUEST_CODE = 0;
 
     private void sendToLogin() {
         startActivityForResult(new Intent(CommentsActivity.this, LoginActivity.class), LOGIN_ACTIVITY_REQUEST_CODE);
@@ -289,7 +289,6 @@ public class CommentsActivity extends AppCompatActivity {
         // Check that it is the SecondActivity with an OK result
         if (requestCode == LOGIN_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Login successful.", Toast.LENGTH_SHORT).show();
                 updateUserLogin();
             }
         }
