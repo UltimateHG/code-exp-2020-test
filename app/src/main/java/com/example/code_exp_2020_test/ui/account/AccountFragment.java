@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,8 +22,6 @@ import com.example.code_exp_2020_test.BlogPost;
 import com.example.code_exp_2020_test.BlogRecyclerAdapter;
 import com.example.code_exp_2020_test.ChangePasswordActivity;
 import com.example.code_exp_2020_test.LoginActivity;
-import com.example.code_exp_2020_test.NavActivity;
-import com.example.code_exp_2020_test.NavViewModel;
 import com.example.code_exp_2020_test.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,8 +33,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Nonnull;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -58,12 +52,10 @@ public class AccountFragment extends Fragment {
     //firebase stuff
     private FirebaseFirestore firebaseFirestore;
 
-    private AccountViewModel accountViewModel;
     private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
         View root = inflater.inflate(R.layout.fragment_account, container, false);
 
         mAuth = FirebaseAuth.getInstance();
